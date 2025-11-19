@@ -1,0 +1,8 @@
+/allure-results
+playwright/.cache/
+playwright-browsers/
+/.idea
+/__pycache__/
+/.venv
+/shelf/
+/workspace.xml
