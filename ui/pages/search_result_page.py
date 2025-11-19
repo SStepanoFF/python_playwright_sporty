@@ -1,8 +1,7 @@
-from playwright.async_api import Locator
 from playwright.sync_api import Page, expect
 
-from pages.base_page import BasePage
-from pages.search_result_streamer_widget import SearchResultStreamerWidget
+from ui.pages.base_page import BasePage
+from ui.pages.search_result_streamer_widget import SearchResultStreamerWidget
 
 
 class SearchResultPage(BasePage):
