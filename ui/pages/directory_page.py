@@ -1,7 +1,6 @@
 from playwright.sync_api import Page, expect, Locator
 
-from pages.base_page import BasePage
-from pages.search_result_streamer_widget import SearchResultStreamerWidget
+from ui.pages.base_page import BasePage
 
 
 class DirectoryPage(BasePage):

@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, Locator
 
-from pages.base_page import BasePage
+from ui.pages.base_page import BasePage
 
 
 class StreamerPage(BasePage):

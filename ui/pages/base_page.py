@@ -1,6 +1,5 @@
 import configparser
 
-import pytest
 from playwright.async_api import Page
 from playwright.sync_api import Locator
 
@@ -19,7 +18,7 @@ class BasePage:
     def open(self):
         config= configparser.ConfigParser()
         config.read('pytest.ini')
-        base_url =  config["pytest"]["base_url"]
+        base_url =  config["pytest"]["ui_base_url"]
         self.page.goto(base_url + self.url_extension)
         self.accept_banner_button.wait_for(state="visible")
         self.accept_banner_button.click()

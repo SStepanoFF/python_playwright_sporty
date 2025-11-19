@@ -1,12 +1,12 @@
 import allure
 from playwright.sync_api import Page
 
-from pages.directory_page import DirectoryPage
-from pages.search_result_page import SearchResultPage
 import pytest
 from playwright.sync_api import sync_playwright
 
-from pages.streamer_page import StreamerPage
+from ui.pages.directory_page import DirectoryPage
+from ui.pages.search_result_page import SearchResultPage
+from ui.pages.streamer_page import StreamerPage
 
 
 @pytest.fixture(scope="session")
@@ -42,7 +42,6 @@ def browser_context(playwright, request):
         is_mobile=device["is_mobile"],
         has_touch=device["has_touch"],
     )
-    # page = context.new_page()
 
     yield context
 
@@ -61,6 +60,8 @@ def pytest_addoption(parser):
     parser.addini("browser", "Browser to use for tests", default="chrome")
     parser.addini("headless", "Run in headless mode", default="false")
     parser.addini("mobile_device", "Device name for mobile emulation", default="Pixel 5")
+    parser.addini("ui_base_url", "Base url for UI tests", default=None)
+    parser.addini("api_base_url", "Base url for API tests", default=None)
 
     parser.addoption("--browser-name", action="store", help="Override browser from CLI")
     parser.addoption("--headless", action="store", help="Override headless mode true/false")
@@ -76,7 +77,8 @@ def directory_page(page: Page):
 def search_result_page(page: Page):
     return SearchResultPage(page)
 
-@ pytest.fixture
+
+@pytest.fixture
 def streamer_page(page: Page):
     return StreamerPage(page)
 
@@ -101,3 +103,8 @@ def pytest_runtest_makereport(item, call):
                 name="page_html",
                 attachment_type=allure.attachment_type.HTML
             )
+
+
+@pytest.fixture(scope="session")
+def api_base_url(request):
+    yield request.config.getini("api_base_url")

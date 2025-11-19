@@ -125,28 +125,29 @@ allure generate allure-results -o allure-report --clean
 allure open allure-report
 ```
 
+## 5. API Test Cases
+ ID | Test Name | Description | Endpoint | Steps | Expected Result |
+|----|-----------|-------------|----------|--------|------------------|
+| TC-API-01 | Get Image By ID | Verify that an existing image can be retrieved by its ID | `/images/{id}` | 1. Call `/images/search` to obtain an existing ID.<br>2. Call `/images/{id}` with this ID. | • Status code 200<br>• Returned ID matches<br>• URL valid<br>• Width/height > 0<br>• Breeds validated if present |
+| TC-API-02 | Get Image With Wrong ID | Validate error handling when ID is invalid | `/images/{id}` | 1. Send request with invalid ID. | • Status code 400<br>• Correct error message |
+| TC-API-03 | Search Images With Limit | Validate the `limit` parameter is respected | `/images/search` | 1. Request with `limit=1`.<br>2. Request with `limit=10`. | • Status code 200<br>• Number of items equals limit<br>• Basic DTO fields valid |
+| TC-API-04 | Search Images With Breed Filter | Validate breed filtering via `has_breeds` | `/images/search` | 1. Request with `has_breeds=1`.<br>2. Request with `has_breeds=0`. | • Correct breed presence/absence<br>• Status code 200 |
+
+
+## 5.1 Validation Summary
+
+**Status codes** validate correct API behavior.
+
+**DTO validation** ensures correct structure and ignores unknown fields.
+
+**Field validation** (id, url, width, height) ensures integrity of returned objects.
+
+**Filtering validation** checks that limit and has_breeds parameters produce correct results.
+
+**Parametrized tests** increase coverage without test duplication.
+
 ---
 
-## 5. Project Structure
-
-```
-project-root/
-│
-├── pages/
-│   ├── base_page.py
-│   ├── directory_page.py
-│   ├── search_result_streamer_widget.py
-│   ├── streamer_page.py
-│   └── search_result_page.py
-│
-├── tests/
-│   ├── conftest.py
-│   └── test_search.py
-│
-├── pytest.ini
-├── README.md
-└── .venv/
-```
 
 ---
 
